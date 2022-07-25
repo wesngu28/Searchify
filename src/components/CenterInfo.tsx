@@ -9,6 +9,7 @@ export default function CenterInfo() {
 
     const [spotifyData, setSpotifyData] = useState({} as PlaylistData)
     const [input, setInput] = useState('')
+    const [type, setType] = useState('')
     const [status, setStatus] = useState('')
   
     const handleChange = (event: InputEvent) => {
@@ -43,6 +44,7 @@ export default function CenterInfo() {
       const json = await fetchData.json()
       setSpotifyData((json))
       setStatus('')
+      setType(type)
     }
 
     return (
@@ -54,7 +56,7 @@ export default function CenterInfo() {
             <p><input type="text" name="inp" id="inp" placeholder="Enter Spotify Link" onChange={handleChange} value={input}/></p>
             <p><input disabled={!input} type="submit" name="submit" id="sub" onClick={async() => getData()}/></p>
             <p>{status}</p>
-            <SpotifyTable spotify={spotifyData} />
+            <SpotifyTable spotify={spotifyData} type={type} />
         </div>
     )
 }
