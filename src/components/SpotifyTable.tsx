@@ -1,10 +1,13 @@
+import Blurb from '../components/Blurb'
+
 export default function SpotifyTable ({spotify}) {
+
     return(
         <div>
             <div>
-                <p>Playlist name: {spotify.profile_name}</p>
-                <p>Playlist size: {spotify.about_me}</p>
+                <img src={spotify.img}></img>
+                <Blurb blurb={spotify}/>
             </div>
-        </div>
+        </div>   
     )
 }
