@@ -1,4 +1,19 @@
-export default function Blurb({blurb}) {
+import { AlbumData } from '../struct/AlbumData';
+import { ArtistData } from '../struct/ArtistData';
+import { PlaylistData } from '../struct/PlaylistData';
+import { TrackData } from '../struct/TrackData';
+
+interface Props {
+    blurb: AlbumData | ArtistData | PlaylistData | TrackData
+    type: string
+}
+
+export default function Blurb({blurb, type}: Props) {
+
+    function hasOwnProperty<X extends {}, Y extends PropertyKey>
+        (obj: X, prop: Y): obj is X & Record<Y, unknown> {
+        return obj.hasOwnProperty(prop)
+    }
 
     const randomAdjective = () => {
         const adjectives = ['admirable', 'amazing', 'astonishing', 'awesome', 'brilliant', 'cool', 'enjoyable', 'excellent', 'fabulous', 'fantastic', 'fine', 'incredible', 'magnificent', 'marvelous', 'outstanding', 'phenomenal', 'pleasant', 'pleasing', 'remarkable',
@@ -10,22 +25,26 @@ export default function Blurb({blurb}) {
         return adjectives[Math.floor(Math.random()*adjectives.length)];
     }
 
-    if(blurb.genre_list) {
+    if(type === 'artist') {
+        blurb = blurb as ArtistData;
         return(
-            <p>The {randomAdjective()} {blurb.name} is a {blurb.main_genre} artist. They make {randomAdjective()} music of {blurb.genre_list} genres.</p>
+            <p>The {randomAdjective()} {blurb.name} is a {blurb.genres[0]} artist. They make {randomAdjective()} music of {blurb.genre_list} genres.</p>
         )
     }
-    if(blurb.duration) {
+    if(type === 'song') {
+        blurb = blurb as TrackData;
         return(
             <p>The {randomAdjective()} song {blurb.name} was made by the {randomAdjective()} {blurb.artist}. It was released on {blurb.release} in the {randomAdjective()} album {blurb.album}.</p>
         )
     }
-    if(blurb.frequent_count) {
+    if(type === 'playlist') {
+        blurb = blurb as PlaylistData;
         return(
             <p>{blurb.name} was created on {blurb.created}. This {randomAdjective()} playlist has size {blurb.size} with the {randomAdjective()} {blurb.frequent} being the most frequent, appearing {blurb.frequent_count}.</p>
         )
     }
-    if(blurb.release_date) {
+    if(type === 'album') {
+        blurb = blurb as AlbumData;
         return(
             <p>The {randomAdjective()} {blurb.name} is an album by the {randomAdjective()} {blurb.main_artist}. Released on {blurb.release_date}, it has {randomAdjective()} {blurb.total_tracks} total songs.</p>
         )

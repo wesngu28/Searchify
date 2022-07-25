@@ -4,6 +4,7 @@ export interface TrackData {
     duration: string,
     name: string,
     release: string,
+    img: string,
     tracks: {
         artists: {
             [key: string]: string
