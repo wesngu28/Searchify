@@ -37,7 +37,7 @@ def callback():
       global access_token
       access_token = response_data["access_token"]
       print(access_token)
-      return(redirect('http://127.0.0.1:5500/home.html'))
+      return(redirect('http://localhost:3000/'))
     except:
       return('Fail')
 
@@ -55,12 +55,7 @@ def authentication():
         params_list = params_list[:-1]
         print('Tacha')
         response = f"{SPOTIFY_AUTH_URL}/?{params_list}"
-        return(response)
-
-@app.route("/test")
-def test():
-    print('prod')
-    return("Let's light it up")
+        return(redirect(f"{SPOTIFY_AUTH_URL}/?{params_list}"))
 
 @app.route("/user")
 def user():
