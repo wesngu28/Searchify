@@ -13,30 +13,36 @@ export default function CenterInfo() {
   
     const handleChange = (event: InputEvent) => {
       const spotifyUrl = new RegExp('(https?:\/\/open.spotify.com\/(playlist|track|user|artist|album)\/[a-zA-Z0-9]+(\/playlist\/[a-zA-Z0-9]+|)|spotify:(track|user|artist|album):[a-zA-Z0-9]+(:playlist:[a-zA-Z0-9]+|))');
-      const spotifyUrlChars = new RegExp('^[A-Za-z0-9?.=:\/_]*$')
-      if (!spotifyUrl.test(event.target.value) || !spotifyUrlChars.test(event.target.value)) {
+      if (!spotifyUrl.test(event.target.value)) {
         setInput('');
       } else {
-        let inp = event.target.value
-        const lastSlash = inp.lastIndexOf('/')
-        const question = inp.indexOf('?')
-        let lastColon: number
-        if(!lastSlash) {
-          lastColon = inp.lastIndexOf(':')
-          setInput(inp.substring(lastColon + 1, inp.length-1))
-        }
-        setInput(inp.substring(lastSlash + 1, question))
+        setInput(event.target.value)
       }
     };
   
     const getData = async() => {
       if ((input.includes('playlist')) || (input.includes('album') || (input.includes('track')) || (input.includes('artist')))) {
-        console.log('I want to be dicked down')  
         setStatus('Currently loading information...')
       }
-      const fetchData = await fetch(`/search/playlist/${input}`)
+      const lastSlash = input.lastIndexOf('/')
+      const question = input.indexOf('?')
+      let lastColon: number
+      let type: string;
+      let trimInput: string;
+      if(!lastSlash) {
+        lastColon = input.lastIndexOf(':')
+        const secondLastColon = input.lastIndexOf(':', input.lastIndexOf(':')-1)
+        type = input.substring(secondLastColon + 1, lastColon)
+        trimInput = input.substring(lastColon + 1, input.length-1)
+      } else {
+        const secondLastSlash = input.lastIndexOf('/', input.lastIndexOf('/')-1)
+        type = input.substring(secondLastSlash + 1, lastSlash)
+        trimInput = input.substring(lastSlash + 1, question)
+      }
+      const fetchData = await fetch(`/search/${type}/${trimInput}`)
       const json = await fetchData.json()
       setSpotifyData((json))
+      setStatus('')
     }
 
     return (
