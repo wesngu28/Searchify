@@ -1,15 +1,17 @@
 import '../styles/NavBar.css'
+import { Link } from 'react-router-dom';
 
 export default function NavBar() {
+
     return(
         <nav className="nav">
-            <a href="/" id="title">Searchify</a>
+            <Link to="/" id="title">Searchify</Link>
             <ul>
                 <li>
-                    <a href="/user">Your Spotify Link</a>
+                    <Link to="/profile">My Spotify</Link>
                 </li>
                 <li>
-                    <a href="/about">About</a>
+                    <Link to="/about">About</Link>
                 </li>
             </ul>
         </nav>

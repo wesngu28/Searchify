@@ -36,7 +36,6 @@ def callback():
       response_data = json.loads(post_request.text)
       global access_token
       access_token = response_data["access_token"]
-      print(access_token)
       return(redirect('http://localhost:3000/'))
     except:
       return('Fail')
@@ -46,7 +45,6 @@ def authentication():
     try:
         sp = spotipy.Spotify(auth=access_token)
         response = user_info(sp)
-        print(response)
         return(response)
     except:
         params_list = ''
@@ -57,12 +55,20 @@ def authentication():
         response = f"{SPOTIFY_AUTH_URL}/?{params_list}"
         return(redirect(f"{SPOTIFY_AUTH_URL}/?{params_list}"))
 
+@app.route('/check')
+def check():
+    if(access_token == 'Not set'):
+        return 'not logged'
+    return 'is logged'
+
 @app.route("/user")
 def user():
-    sp = spotipy.Spotify(auth=access_token)
-    response = user_info(sp)
-    print(response)
-    return(response)
+    try:
+        sp = spotipy.Spotify(auth=access_token)
+        response = user_info(sp)
+        return(response)
+    except:
+        return('tis but a test')
 
 @app.route("/search/playlist/<searchField>")
 def playlist(searchField):
@@ -74,6 +80,7 @@ def playlist(searchField):
 @app.route("/search/artist/<searchField>")
 def artist(searchField):
     response = artist_info(sp, searchField)
+    print(response['tracks'])
     recommendations = search_youtube(response['tracks'])
     response['tracks'] = recommendations.to_dict()
     return(response)

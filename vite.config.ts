@@ -18,6 +18,16 @@ export default defineConfig({
             changeOrigin: true,
             secure: false,
           },
+          '/user': {
+            target: 'http://127.0.0.1:5000',
+            changeOrigin: true,
+            secure: false,
+          },
+          '/check': {
+            target: 'http://127.0.0.1:5000',
+            changeOrigin: true,
+            secure: false,
+          },
       }
       
   },
