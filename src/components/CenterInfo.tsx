@@ -11,6 +11,7 @@ export default function CenterInfo() {
     const [input, setInput] = useState('')
     const [type, setType] = useState('')
     const [status, setStatus] = useState('')
+    const [show, setShow] = useState(false)
   
     const handleChange = (event: InputEvent) => {
       const spotifyUrl = new RegExp('(https?:\/\/open.spotify.com\/(playlist|track|user|artist|album)\/[a-zA-Z0-9]+(\/playlist\/[a-zA-Z0-9]+|)|spotify:(track|user|artist|album):[a-zA-Z0-9]+(:playlist:[a-zA-Z0-9]+|))');
@@ -45,18 +46,44 @@ export default function CenterInfo() {
       setSpotifyData((json))
       setStatus('')
       setType(type)
+      setShow(true)
     }
 
     return (
+      <div>
         <div id="about">
-            <h1>Searchify</h1>
-            <p>Search up your favorite songs, albums, and artists and get recommendations as well as various information about them.</p>
-            <p>Input your favorite playlist for information and a link to the song's corresponding YouTube links! Use your connected
-            account to view your top artists and tracks!</p>
-            <p><input type="text" name="inp" id="inp" placeholder="Enter Spotify Link" onChange={handleChange} value={input}/></p>
-            <p><input disabled={!input} type="submit" name="submit" id="sub" onClick={async() => getData()}/></p>
-            <p>{status}</p>
-            <SpotifyTable spotify={spotifyData} type={type} />
+          <h1>Searchify</h1>
+          <p>
+            Search up your favorite songs, albums, and artists and get
+            recommendations as well as various information about them.
+          </p>
+          <p>
+            Input your favorite playlist for information and a link to the
+            song's corresponding YouTube links! Use your connected account to
+            view your top artists and tracks!
+          </p>
+          <p>
+            <input
+              type="text"
+              name="inp"
+              id="inp"
+              placeholder="Enter Spotify Link"
+              onChange={handleChange}
+              value={input}
+            />
+          </p>
+          <p>
+            <input
+              disabled={!input}
+              type="submit"
+              name="submit"
+              id="sub"
+              onClick={async () => await getData()}
+            />
+          </p>
+          <p>{status}</p>
         </div>
-    )
+        {show ? <SpotifyTable spotify={spotifyData} type={type} /> : null}
+      </div>
+    );
 }
