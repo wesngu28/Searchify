@@ -8,7 +8,7 @@ export default function NavBar() {
             <Link to="/" id="title">Searchify</Link>
             <ul>
                 <li>
-                    <Link to="/profile">My Spotify</Link>
+                    <Link to="/auth">My Spotify</Link>
                 </li>
                 <li>
                     <Link to="/about">About</Link>
