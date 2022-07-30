@@ -18,6 +18,7 @@ client_id = CLIENT_ID
 client_secret = CLIENT_SECRET
 client_credentials_manager = SpotifyClientCredentials(client_id=client_id,client_secret=client_secret)
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+
 @app.route("/callback/")
 def callback():
     print(request.referrer)
@@ -36,7 +37,7 @@ def callback():
       response_data = json.loads(post_request.text)
       global access_token
       access_token = response_data["access_token"]
-      return(redirect('http://localhost:3000/'))
+      return(redirect('http://localhost:3000/profile'))
     except:
       return('Fail')
 
@@ -45,7 +46,7 @@ def authentication():
     try:
         sp = spotipy.Spotify(auth=access_token)
         response = user_info(sp)
-        return(response)
+        return(redirect('http://localhost:3000/profile'))
     except:
         params_list = ''
         for i, j in AUTH_QUERY_PARAMETERS.items():

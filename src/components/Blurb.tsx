@@ -2,19 +2,15 @@ import { AlbumData } from '../struct/AlbumData';
 import { ArtistData } from '../struct/ArtistData';
 import { PlaylistData } from '../struct/PlaylistData';
 import { TrackData } from '../struct/TrackData';
+import { UserData } from '../struct/UserData';
 
 interface Props {
-    blurb: AlbumData | ArtistData | PlaylistData | TrackData
+    blurb: AlbumData | ArtistData | PlaylistData | TrackData | UserData
     type: string
 }
 
 export default function Blurb({blurb, type}: Props) {
-
-    function hasOwnProperty<X extends {}, Y extends PropertyKey>
-        (obj: X, prop: Y): obj is X & Record<Y, unknown> {
-        return obj.hasOwnProperty(prop)
-    }
-
+    
     const randomAdjective = () => {
         const adjectives = ['admirable', 'amazing', 'astonishing', 'awesome', 'brilliant', 'cool', 'enjoyable', 'excellent', 'fabulous', 'fantastic', 'fine', 'incredible', 'magnificent', 'marvelous', 'outstanding', 'phenomenal', 'pleasant', 'pleasing', 'remarkable',
         'sensational', 'superb', 'great', 'terrific', 'tremendous', 'wondrous', 'astounding', 'awe-inspiring', 'divine', 'dynamite', 'groovy', 'exquisite', 'miraculous', 'peachy', 'prime', 'staggering', 'stupendous', 'super', 'swell', 'perfect', 'exceptional',
@@ -47,6 +43,12 @@ export default function Blurb({blurb, type}: Props) {
         blurb = blurb as AlbumData;
         return(
             <p>The {randomAdjective()} {blurb.name} is an album by the {randomAdjective()} {blurb.main_artist}. Released on {blurb.release_date}, it has {randomAdjective()} {blurb.total_tracks} total songs.</p>
+        )
+    }
+    if(type === 'user') {
+        blurb = blurb as UserData;
+        return (
+            <p>The {randomAdjective()} {blurb.name} is you.</p>
         )
     }
     return(

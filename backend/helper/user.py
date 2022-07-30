@@ -2,6 +2,7 @@ import time
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import pandas as pd
+import numpy as np
 
 def user_info(sp):
     user_dict = sp.current_user()
@@ -35,9 +36,12 @@ def user_info(sp):
     user_top_artists = sp.current_user_top_artists(time_range = 'long_term')
     for artist in user_top_artists['items']:
         long_term_artist.append(artist['name'])
-    top_artists = pd.DataFrame({'Last 4 Weeks': short_term_artist, 'Last Six Months': medium_term_artist, 'All Time': long_term_artist})
+    artistDict = dict( Short = np.array(short_term_artist), Medium = np.array(medium_term_artist), Long = np.array(long_term_artist) )
+    top_artists = pd.DataFrame(dict([ (k,pd.Series(v)) for k,v in artistDict.items() ]))
+    top_artists.columns = ['Last 4 Weeks', 'Last Six Months', 'All Time']
+    top_artists = top_artists.fillna('No Data')
+    print(top_artists)
     top_artists = top_artists.to_dict()
-
     short_term_track = []
     medium_term_track = []
     long_term_track = []
@@ -85,8 +89,10 @@ def user_info(sp):
             long_term_track[idx] = f"{long_term_track[idx]} by {artist_string}"
         else:
             long_term_track[idx] = f"{long_term_track[idx]} by {(artist['artists'][0]['name'])}"
-
-    top_songs = pd.DataFrame({'Last 4 Weeks': short_term_track, 'Last Six Months': medium_term_track, 'All Time': long_term_track})
+    songDict = dict( Short = np.array(short_term_track), Medium = np.array(medium_term_track), Long = np.array(long_term_track) )
+    top_songs = pd.DataFrame(dict([ (k,pd.Series(v)) for k,v in songDict.items() ]))
+    top_songs.columns = ['Last 4 Weeks', 'Last Six Months', 'All Time']
+    top_songs = top_songs.fillna('No Data')
     top_songs = top_songs.to_dict()
     user = {
         'name' : user_dict['display_name'],
