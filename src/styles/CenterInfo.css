@@ -1,20 +1,13 @@
-* {
-    box-sizing: border-box;
-}
-
 #inp {
-    height:3vh;
+    height: 3vh;
     width: 25vw;
 }
 
 #about {
-    flex-wrap: wrap;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    min-height: 75vh;
     padding: 0 2rem 0 2rem;
 }
   
