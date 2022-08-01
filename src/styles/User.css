@@ -5,3 +5,7 @@
     align-items: center;
     flex-direction: column;
 }
+
+#show {
+    margin-bottom: 2rem;
+}

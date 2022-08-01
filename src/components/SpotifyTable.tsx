@@ -5,6 +5,7 @@ import { ArtistData } from "../struct/ArtistData";
 import { PlaylistData } from "../struct/PlaylistData";
 import { TrackData } from "../struct/TrackData";
 import "../styles/SpotifyTable.css";
+import Pastry from "./Doughnut";
 
 interface Props {
   spotify: AlbumData | ArtistData | PlaylistData | TrackData;
@@ -12,7 +13,6 @@ interface Props {
 }
 
 export default function SpotifyTable({ spotify, type }: Props) {
-
   const getHeaders = () => {
     if (
       type === "artist" ||
@@ -66,16 +66,17 @@ export default function SpotifyTable({ spotify, type }: Props) {
   }
 
   return (
-    <div>
+    <div id="center">
       <div>
         <div id="info">
           <img id="spotify" src={spotify.img}></img>
           <Blurb blurb={spotify} type={type} />
         </div>
       </div>
-      <button id="dl" onClick={async () => downloadTable()}>
+      <button className="button" onClick={async () => downloadTable()}>
           Download Table
       </button>
+        {type === 'playlist' ? <div id="bakery"><Pastry filter={spotify.tracks['artists']} /></div> : null}
       <p>{tableCaptionThing()}</p>
       <Table head={getHeaders()} body={spotify.tracks} usage={'music'}/>
     </div>
