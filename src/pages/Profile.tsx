@@ -22,8 +22,7 @@ export default function Profile() {
     <div id="user">
       <img src={data.img}></img>
       <Blurb blurb={data} type={"user"} />
-      <button id="dl" onClick={() => setShow(!show)}>{ show === true ? 'Show Top Songs' : 'Show Top Artists' }</button>
-      <br></br>
+      <button className="button" id="show" onClick={() => setShow(!show)}>{ show === true ? 'Show Top Songs' : 'Show Top Artists' }</button>
       { data.name ? <Table head={headings} body={show === true ? Object.values(data.top_artists) : Object.values(data.top_songs)} usage={'user'}/> : null }
     </div>
   );

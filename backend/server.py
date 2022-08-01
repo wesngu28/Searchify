@@ -45,15 +45,12 @@ def callback():
 def authentication():
     try:
         sp = spotipy.Spotify(auth=access_token)
-        response = user_info(sp)
         return(redirect('http://localhost:3000/profile'))
     except:
         params_list = ''
         for i, j in AUTH_QUERY_PARAMETERS.items():
             params_list = params_list + i + '=' + j + '&'
         params_list = params_list[:-1]
-        print('Tacha')
-        response = f"{SPOTIFY_AUTH_URL}/?{params_list}"
         return(redirect(f"{SPOTIFY_AUTH_URL}/?{params_list}"))
 
 @app.route('/check')
@@ -81,7 +78,6 @@ def playlist(searchField):
 @app.route("/search/artist/<searchField>")
 def artist(searchField):
     response = artist_info(sp, searchField)
-    print(response['tracks'])
     recommendations = search_youtube(response['tracks'])
     response['tracks'] = recommendations.to_dict()
     return(response)
