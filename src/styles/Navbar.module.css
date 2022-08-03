@@ -1,0 +1,27 @@
+.nav {
+    width: 100%;
+    background-color: black;
+    color: white;
+    gap: 2rem;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.nav a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: inherit;
+    padding: 0.5rem;
+    text-decoration: none;
+}
+
+.nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 1rem;
+    display: flex;
+}

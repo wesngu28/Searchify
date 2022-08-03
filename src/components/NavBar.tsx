@@ -1,17 +1,17 @@
-import '../styles/NavBar.css'
-import { Link } from 'react-router-dom';
+import navStyles from '../styles/Navbar.module.css'
+import Link from 'next/link'
 
-export default function NavBar() {
+export default function Navbar() {
 
     return(
-        <nav className="nav">
-            <Link to="/" id="title">Searchify</Link>
+        <nav className={navStyles.nav}>
+            <Link href="/" id="title">Searchify</Link>
             <ul>
                 <li>
-                    <Link to="/auth">My Spotify</Link>
+                    <Link href="/auth">My Spotify</Link>
                 </li>
                 <li>
-                    <Link to="/about">About</Link>
+                    <Link href="/about">About</Link>
                 </li>
             </ul>
         </nav>
