@@ -1,4 +1,4 @@
-import Navbar from './NavBar'
+import Navbar from './Navbar'
 import Header from './Header'
 import layoutStyles from '../styles/Layout.module.css'
 import { ReactNode } from 'react';
