@@ -43,15 +43,11 @@ def callback():
 
 @app.route("/auth/")
 def authentication():
-    try:
-        sp = spotipy.Spotify(auth=access_token)
-        return(redirect('http://localhost:3000/profile'))
-    except:
-        params_list = ''
-        for i, j in AUTH_QUERY_PARAMETERS.items():
-            params_list = params_list + i + '=' + j + '&'
-        params_list = params_list[:-1]
-        return(redirect(f"{SPOTIFY_AUTH_URL}/?{params_list}"))
+    params_list = ''
+    for i, j in AUTH_QUERY_PARAMETERS.items():
+        params_list = params_list + i + '=' + j + '&'
+    params_list = params_list[:-1]
+    return(redirect(f"{SPOTIFY_AUTH_URL}/?{params_list}"))
 
 @app.route('/check')
 def check():
