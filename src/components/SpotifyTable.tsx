@@ -4,7 +4,7 @@ import { AlbumData } from "../struct/AlbumData";
 import { ArtistData } from "../struct/ArtistData";
 import { PlaylistData } from "../struct/PlaylistData";
 import { TrackData } from "../struct/TrackData";
-import "../styles/SpotifyTable.css";
+import spotifyStyles from "../styles/SpotifyTable.module.css";
 import Pastry from "./Doughnut";
 
 interface Props {

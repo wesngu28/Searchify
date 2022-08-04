@@ -1,4 +1,4 @@
-import '../styles/Table.css'
+import tableStyles from '../styles/Table.module.css'
 
 interface Props {
   head: string[];
@@ -30,19 +30,19 @@ export default function Table ({head, body, usage}: Props) {
       })
     }
     return (
-      <div className="table">
-        <table>
+      <div>
+        <table className={tableStyles.table}>
           <thead>
-            <tr>
+            <tr className={tableStyles.tr}>
               {head.map((item: string) => {
-                return <th title={item}>{item}</th>;
+                return <th className={tableStyles.th} title={item}>{item}</th>;
               })}
             </tr>
             {mapper.map((arr, i) => {
               return (
-                <tr>
+                <tr className={tableStyles.tr}>
                   {arr.map((element) => (
-                    <td>{element}</td>
+                    <td className={tableStyles.td}>{element}</td>
                   ))}
                 </tr>
               );
