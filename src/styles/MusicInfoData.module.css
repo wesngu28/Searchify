@@ -1,3 +1,10 @@
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 .button {
     background-color: #0080FF;
     border: none;
@@ -14,3 +21,19 @@
 .button:hover {
     background-color: #004C99;
 }
+
+.bakery {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    width: 400px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+}
+
+@media only screen and (max-width: 425px) {
+    .bakery {
+        width: 300px;
+        height: 300px;
+    }
+} 
