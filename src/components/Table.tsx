@@ -13,8 +13,7 @@ export default function Table ({head, body, usage}: Props) {
       const first = constituentArrays[0]
       const second = constituentArrays[1]
       const urls: Array<JSX.Element> = Object.values(second).map(url => {
-        return <iframe src={`https://www.youtube.com/embed/${url.replace('https://www.youtube.com/watch?v=', '')}`}></iframe>
-        // <a href={url}>Youtube Link</a>
+        return <a href={url}>Youtube Link</a>
       })
       const third = constituentArrays[2]
       mapper = Object.values(third).map((element, i) => {
