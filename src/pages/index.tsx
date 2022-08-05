@@ -69,7 +69,3 @@ export default function MusicInfo() {
       </div>
     );
 }
-
-// export const getServerSideProps = async (context) => {
-  
-// }
