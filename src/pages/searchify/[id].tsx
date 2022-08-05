@@ -1,10 +1,11 @@
 import MusicInfo from ".";
 import Blurb from "../../components/Blurb";
+import Pastry from "../../components/Doughnut";
 import Table from "../../components/Table";
 import musicStyles from '../../styles/MusicInfoData.module.css'
+import { randomAdjective } from "../../util/randomAdjective";
 
 export default function Music ({music, type, adjectives}) {
-
   const getHeaders = () => {
     if (
       type === "artist" ||
@@ -58,15 +59,23 @@ export default function Music ({music, type, adjectives}) {
   }
 
   return (
-    <div>
+    <>
         <MusicInfo />
-        <Blurb blurb={music} type={type} adjectives={adjectives}/>
-        <button className={musicStyles.button} onClick={async () => downloadTable()}>
-          Download Table
-        </button>
-        <p>{tableCaption()}</p>
-        <Table head={getHeaders()} body={music.tracks} usage={'music'}/>
-    </div>
+        {
+          music.error ? <p>{music.error}</p> :
+          <>
+            <Blurb blurb={music} type={type} adjectives={adjectives}/>
+            <button className={musicStyles.button} onClick={async () => downloadTable()}>
+              Download Table
+            </button>
+            <div className={musicStyles.center}>
+              {type === 'playlist' ? <div className={musicStyles.bakery}><Pastry filter={music.tracks.Artists} /></div> : null}
+            </div>
+            <p>{tableCaption()}</p>
+            <Table head={getHeaders()} body={music.tracks} usage={'music'}/>
+          </>
+        }
+    </>
   )
 }
 
@@ -75,15 +84,15 @@ export const getServerSideProps = async ( { req }) => {
   searchQuery = searchQuery.replace('/searchify/', '');
   const searchQueryArr = searchQuery.split('=');
   const fetchData = await fetch(`http://localhost:3000/search/${searchQueryArr[0]}/${searchQueryArr[1]}`)
-  const json = await fetchData.json()
-  const randomAdjective = () => {
-    const adjectives = ['admirable', 'amazing', 'astonishing', 'awesome', 'brilliant', 'cool', 'enjoyable', 'excellent', 'fabulous', 'fantastic', 'fine', 'incredible', 'magnificent', 'marvelous', 'outstanding', 'phenomenal', 'pleasant', 'pleasing', 'remarkable',
-    'sensational', 'superb', 'great', 'terrific', 'tremendous', 'wondrous', 'astounding', 'awe-inspiring', 'divine', 'dynamite', 'groovy', 'exquisite', 'miraculous', 'peachy', 'prime', 'staggering', 'stupendous', 'super', 'swell', 'perfect', 'exceptional',
-    'perfect', 'smash-hit', 'dynamite', 'breaktaking', 'stunning', 'unbelievable', 'spectacular', 'sublime', 'formidable', 'imposing', 'mind-boggling', 'mind-blowing', 'bussin', 'out of this world', 'amazeballs', 'eye-opening', 'prodigious', 'wonderful',
-    'impressive', 'genius', 'mensa-level', 'unique', 'notable', 'life-changing', 'alluring', 'bewitching', 'captivating', 'charming', 'attractive', 'enchanting', 'entertaining', 'banger', 'enthralling', 'fascinating', 'interesting', 'dope', 'fantabulous',
-    'grand', 'heavenly', 'high-class', 'hype', 'stellar', 'superior', 'good', 'satisfactory', 'talented', 'legendary', 'worthy of celebrating', 'worthy of worship', 'godlike', 'god-tier', 's-tier', 'immersive', 'bop', 'pog', 'poggingly',
-    'adorable', 'booming', 'crisp', 'delicious', 'fatherly', 'friendly', 'glistering', 'iconic', 'hot', 'fire', 'lush', 'magical', 'menacing', 'jovial', 'overpowered', 'powerful', 'precious', 'proper', 'shiny', 'smooth', 'vivid', 'witty']
-    return adjectives[Math.floor(Math.random()*adjectives.length)];
+  let json;
+  try {
+    json = await fetchData.json()
+  } catch (err) {
+    if (searchQueryArr[0] === 'playlist') {
+      json = { 'error' : 'Error encountered with the playlist, is it privated?'}
+    } else {
+      json = { 'error' : 'Error encountered processing the link submitted.'}
+    }
   }
   const adjectives = []
   adjectives.push(randomAdjective())
@@ -92,7 +101,7 @@ export const getServerSideProps = async ( { req }) => {
   return {
     props: { 
       type: searchQueryArr[0],
-      music : json,
+      music: json,
       adjectives: adjectives
     },
   }
