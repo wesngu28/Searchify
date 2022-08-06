@@ -1,11 +1,18 @@
-import MusicInfo from ".";
+import MusicInfo from "..";
 import Blurb from "../../components/Blurb";
 import Pastry from "../../components/Doughnut";
 import Table from "../../components/Table";
 import musicStyles from '../../styles/MusicInfoData.module.css'
 import { randomAdjective } from "../../util/randomAdjective";
+import { GetServerSideProps } from "next";
 
-export default function Music ({music, type, adjectives}) {
+interface Props {
+  music: any
+  type: string
+  adjectives: string[]
+}
+
+export default function Music ({music, type, adjectives}: Props) {
   const getHeaders = () => {
     if (
       type === "artist" ||
@@ -79,9 +86,8 @@ export default function Music ({music, type, adjectives}) {
   )
 }
 
-export const getServerSideProps = async ( { req }) => {
-  let searchQuery = req.url;
-  searchQuery = searchQuery.replace('/searchify/', '');
+export const getServerSideProps: GetServerSideProps = async ( { query }) => {
+  let searchQuery = (query.id! as string).replace('/searchify/', '');
   const searchQueryArr = searchQuery.split('=');
   const fetchData = await fetch(`http://localhost:3000/search/${searchQueryArr[0]}/${searchQueryArr[1]}`)
   let json;

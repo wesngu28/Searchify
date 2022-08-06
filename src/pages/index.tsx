@@ -72,7 +72,7 @@ export default function MusicInfo() {
               <a className={musicStyles.submit} onClick={(event) => !input ? event.preventDefault() : setStatus(`Loading your request...`)}>Searchify</a>
             </Link>
           </p>
-          <p>{status}</p>
+          {status ? <p>{status}</p> : null}
       </div>
     );
 }
