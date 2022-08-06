@@ -10,7 +10,6 @@ from helper.user import user_info
 import requests
 import json
 import spotipy
-from youtubesearchpython import VideosSearch
 
 app = Flask(__name__)
 access_token = 'Not set'
@@ -88,6 +87,8 @@ def track(searchField):
 @app.route("/search/album/<searchField>")
 def album(searchField):
     response = album_info(sp, searchField)
+    recommendations = search_youtube(response['tracks'])
+    response['tracks'] = recommendations.to_dict()
     return(response)
 
 if __name__ == "__main__":
