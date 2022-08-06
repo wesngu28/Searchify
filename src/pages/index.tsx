@@ -1,6 +1,6 @@
 import musicStyles from '../styles/MusicInfo.module.css'
 import Link from 'next/link'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -9,7 +9,16 @@ export default function MusicInfo() {
   const [type, setType] = useState('')
   const [input, setInput] = useState('')
   const [status, setStatus] = useState('')
+  const [identical, setIdentical] = useState('')
+
+  useEffect(() => {
+    if(window.location.href.includes(input)) {
+      setStatus('')
+    }
+  });
+
   const handleChange = (event: InputEvent) => {
+    setIdentical('')
     const spotifyUrl = new RegExp('(https?:\/\/open.spotify.com\/(playlist|track|user|artist|album)\/[a-zA-Z0-9]+(\/playlist\/[a-zA-Z0-9]+|)|spotify:(track|user|artist|album):[a-zA-Z0-9]+(:playlist:[a-zA-Z0-9]+|))');
     if (!spotifyUrl.test(event.target.value)) {
       setInput('');
@@ -29,10 +38,9 @@ export default function MusicInfo() {
         let currentInput = window.location.href.replace('http://localhost:3000/searchify/', '');
         const currentInputArr = currentInput.split('=');
         if(newInput === currentInputArr[1]) {
-          setInput('')
-        } else {
-          setInput(newInput)
+          setIdentical(String(Math.floor(Math.random() * (1000000 - 1) ) + 1))
         }
+        setInput(newInput)
       } else {
         const secondLastSlash = tempInput.lastIndexOf('/', tempInput.lastIndexOf('/')-1)
         setType(tempInput.substring(secondLastSlash + 1, lastSlash))
@@ -40,10 +48,9 @@ export default function MusicInfo() {
         let currentInput = window.location.href.replace('http://localhost:3000/searchify/', '');
         const currentInputArr = currentInput.split('=');
         if(newInput === currentInputArr[1]) {
-          setInput('')
-        } else {
-          setInput(newInput)
+          setIdentical(String(Math.floor(Math.random() * (1000000 - 1) ) + 1))
         }
+        setInput(newInput)
       }
     }
   };
@@ -61,8 +68,8 @@ export default function MusicInfo() {
             />
           </p>
           <p>
-            <Link href={input ? `/searchify/${type}=${input}` : {}} id="title">
-              <a className={musicStyles.submit} onClick={(event) => !input ? event.preventDefault() : setStatus('loading')}>Searchify</a>
+            <Link href={input ? (identical ? `/searchify/${type}=${input}=${identical}` : `/searchify/${type}=${input}` ) : {}} id="title">
+              <a className={musicStyles.submit} onClick={(event) => !input ? event.preventDefault() : setStatus(`Loading your request...`)}>Searchify</a>
             </Link>
           </p>
           <p>{status}</p>
