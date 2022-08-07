@@ -1,0 +1,11 @@
+.information {
+    width: 75rem;
+    text-align: left;
+}
+
+@media screen and (max-width: 1250px) {
+    .information {
+        width: 100%;
+        }
+    }   
+    
