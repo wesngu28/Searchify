@@ -13,7 +13,7 @@ export default function Table ({head, body, usage}: Props) {
       const first = constituentArrays[0]
       const second = constituentArrays[1]
       const urls: Array<JSX.Element> = Object.values(second).map(url => {
-        return <a href={url}>Youtube Link</a>
+        return <a key={url.id} href={url}>Youtube Link</a>
       })
       const third = constituentArrays[2]
       mapper = Object.values(third).map((element, i) => {
@@ -34,14 +34,14 @@ export default function Table ({head, body, usage}: Props) {
           <thead>
             <tr className={tableStyles.tr}>
               {head.map((item: string) => {
-                return <th className={tableStyles.th} title={item}>{item}</th>;
+                return <th key={item.id} className={tableStyles.th} title={item}>{item}</th>;
               })}
             </tr>
             {mapper.map((arr, i) => {
               return (
-                <tr className={tableStyles.tr}>
+                <tr key={arr.id} className={tableStyles.tr}>
                   {arr.map((element) => (
-                    <td className={tableStyles.td}>{element}</td>
+                    <td key={element.id} className={tableStyles.td}>{element}</td>
                   ))}
                 </tr>
               );

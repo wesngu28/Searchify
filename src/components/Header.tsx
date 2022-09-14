@@ -12,7 +12,7 @@ export default function Header () {
             </p>
             <p>
                 Input your favorite playlist for information and a link to the
-                song's corresponding YouTube links! Use your connected account to
+                corresponding YouTube link for each song! Use your connected account to
                 view your top artists and tracks!
             </p>
         </div>
