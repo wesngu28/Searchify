@@ -18,7 +18,7 @@ const processData = (playlistArtist: Dict) => {
         }
     }
     let countValues = countOccurrences(dataSet)
-    countValues = Object.fromEntries(Object.entries(countValues).sort((a,b) => b[1]-a[1]))
+    countValues = Object.fromEntries(Object.entries(countValues).sort((a: [string, any],b: [string, any]) => b[1]-a[1]))
     const keys: string[] = Object.keys(countValues);
     const values: string[] = Object.values(countValues);
     let potentialExcess = [];
