@@ -9,3 +9,5 @@ Backend is hosted on PythonAnywhere. The backend was initially a script that I c
 I spent a long time not doing anything on that front and it coincidentally linedup with me also procrastinating on teaching myself React and its fundamentals. After a lot of work and adding Next.js into the stack, I finally got to a point where I am happy with what I've done regarding what started as just a simple script.
 
 Frontend is hosted on Vercel.
+
+Sadly searchify.vercel.app was already taken 😭
