@@ -39,7 +39,7 @@ export default function Table ({head, body, usage}: Props) {
             </tr>
             {mapper.map((arr, i) => {
               return (
-                <tr key={arr} className={tableStyles.tr}>
+                <tr key={i} className={tableStyles.tr}>
                   {arr.map((element, idx) => (
                     <td key={idx} className={tableStyles.td}>{element}</td>
                   ))}
