@@ -33,15 +33,15 @@ export default function Table ({head, body, usage}: Props) {
         <table className={tableStyles.table}>
           <thead>
             <tr className={tableStyles.tr}>
-              {head.map((item: string) => {
-                return <th key={item.id} className={tableStyles.th} title={item}>{item}</th>;
+              {head.map((item: string, idx) => {
+                return <th key={idx} className={tableStyles.th} title={item}>{item}</th>;
               })}
             </tr>
             {mapper.map((arr, i) => {
               return (
                 <tr key={arr.id} className={tableStyles.tr}>
-                  {arr.map((element) => (
-                    <td key={element.id} className={tableStyles.td}>{element}</td>
+                  {arr.map((element, idx) => (
+                    <td key={idx} className={tableStyles.td}>{element}</td>
                   ))}
                 </tr>
               );
