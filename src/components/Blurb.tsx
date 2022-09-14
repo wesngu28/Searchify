@@ -4,7 +4,7 @@ import { PlaylistData } from '../struct/PlaylistData';
 import { TrackData } from '../struct/TrackData';
 import { UserData } from '../struct/UserData';
 import blurbStyles from '../styles/Blurb.module.css'
-import { Image } from 'next/image'
+import Image from 'next/image'
 
 interface Props {
     blurb: AlbumData | ArtistData | PlaylistData | TrackData | UserData
