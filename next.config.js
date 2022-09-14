@@ -5,15 +5,15 @@ module.exports = {
     return [
       {
         source: "/search/:path*",
-        destination: "http://127.0.0.1:5000/search/:path*",
+        destination: "http://wn28.pythonanywhere.com/search/:path*",
       },
       {
         source: "/auth",
-        destination: "http://127.0.0.1:5000/auth",
+        destination: "http://wn28.pythonanywhere.com/auth",
       },
       {
         source: "/user",
-        destination: "http://127.0.0.1:5000/user",
+        destination: "http://wn28.pythonanywhere.com/user",
       },
     ];
   }
