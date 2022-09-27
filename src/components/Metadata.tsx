@@ -1,9 +1,9 @@
 import Head from 'next/head'
 
 interface Props {
-    title: string;
-    keywords: string;
-    description: string;
+    title?: string;
+    keywords?: string;
+    description?: string;
 }
 
 export default function Metadata ({ title, keywords, description }: Props) {

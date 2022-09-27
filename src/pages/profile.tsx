@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Blurb from "../components/Blurb";
+import Metadata from "../components/Metadata";
 import Table from "../components/Table";
 import { UserData } from "../struct/UserData";
 import userStyles from "../styles/User.module.css";
@@ -22,10 +23,13 @@ export default function Profile() {
   }, []);
 
   return (
-    <div id="user">
-      <Blurb blurb={data} type={"user"} adjectives={adjective.split('+')} />
-      <button className={userStyles.button} onClick={() => setShow(!show)}>{ show === true ? 'Show Top Songs' : 'Show Top Artists' }</button>
-      { data.name ? <Table head={headings} body={show === true ? Object.values(data.top_artists) : Object.values(data.top_songs)} usage={'user'}/> : null }
-    </div>
+    <>
+      <Metadata title={`Searchify | ${data.name}`} />
+      <div id="user">
+        <Blurb blurb={data} type={"user"} adjectives={adjective.split('+')} />
+        <button className={userStyles.button} onClick={() => setShow(!show)}>{show === true ? 'Show Top Songs' : 'Show Top Artists'}</button>
+        {data.name ? <Table head={headings} body={show === true ? Object.values(data.top_artists) : Object.values(data.top_songs)} usage={'user'} /> : null}
+      </div>
+    </>
   );
 }

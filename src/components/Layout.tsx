@@ -2,6 +2,7 @@ import Navbar from './NavBar'
 import Header from './Header'
 import layoutStyles from '../styles/Layout.module.css'
 import { ReactNode } from 'react';
+import Metadata from './Metadata';
 
 interface Props {
     children: ReactNode

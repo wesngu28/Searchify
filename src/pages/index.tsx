@@ -1,6 +1,7 @@
 import musicStyles from '../styles/MusicInfo.module.css'
 import Link from 'next/link'
 import { useEffect, useState } from 'react';
+import Metadata from '../components/Metadata';
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -12,7 +13,7 @@ export default function MusicInfo() {
   const [identical, setIdentical] = useState('')
 
   useEffect(() => {
-    if(window.location.href.includes(input)) {
+    if (window.location.href.includes(input)) {
       setStatus('')
     }
   });
@@ -30,49 +31,52 @@ export default function MusicInfo() {
       const lastSlash = tempInput.lastIndexOf('/')
       const question = tempInput.indexOf('?')
       let lastColon: number
-      if(!lastSlash) {
+      if (!lastSlash) {
         lastColon = tempInput.lastIndexOf(':')
-        const secondLastColon = tempInput.lastIndexOf(':', tempInput.lastIndexOf(':')-1)
+        const secondLastColon = tempInput.lastIndexOf(':', tempInput.lastIndexOf(':') - 1)
         setType(tempInput.substring(secondLastColon + 1, lastColon))
-        const newInput = tempInput.substring(lastColon + 1, tempInput.length-1)
+        const newInput = tempInput.substring(lastColon + 1, tempInput.length - 1)
         let currentInput = window.location.href.replace('https://searchifyy.vercel.app/searchify/', '');
         const currentInputArr = currentInput.split('=');
-        if(newInput === currentInputArr[1]) {
-          setIdentical(String(Math.floor(Math.random() * (1000000 - 1) ) + 1))
+        if (newInput === currentInputArr[1]) {
+          setIdentical(String(Math.floor(Math.random() * (1000000 - 1)) + 1))
         }
         setInput(newInput)
       } else {
-        const secondLastSlash = tempInput.lastIndexOf('/', tempInput.lastIndexOf('/')-1)
+        const secondLastSlash = tempInput.lastIndexOf('/', tempInput.lastIndexOf('/') - 1)
         setType(tempInput.substring(secondLastSlash + 1, lastSlash))
         const newInput = tempInput.substring(lastSlash + 1, question)
         let currentInput = window.location.href.replace('https://searchifyy.vercel.app/searchify/', '');
         const currentInputArr = currentInput.split('=');
-        if(newInput === currentInputArr[1]) {
-          setIdentical(String(Math.floor(Math.random() * (1000000 - 1) ) + 1))
+        if (newInput === currentInputArr[1]) {
+          setIdentical(String(Math.floor(Math.random() * (1000000 - 1)) + 1))
         }
         setInput(newInput)
       }
     }
   };
 
-    return (
+  return (
+    <>
+      <Metadata />
       <div className={musicStyles.container}>
-          <p>
-            <input
-              type="text"
-              name="inp"
-              className={musicStyles.input}
-              placeholder="Enter Spotify Link"
-              onChange={handleChange}
-              value={input}
-            />
-          </p>
-          <p>
-            <Link href={input ? (identical ? `/searchify/${type}=${input}=${identical}` : `/searchify/${type}=${input}` ) : {}} id="title">
-              <a className={musicStyles.submit} onClick={(event) => !input ? event.preventDefault() : setStatus(`Loading your request...`)}>Searchify</a>
-            </Link>
-          </p>
-          {status ? <p>{status}</p> : null}
+        <p>
+          <input
+            type="text"
+            name="inp"
+            className={musicStyles.input}
+            placeholder="Enter Spotify Link"
+            onChange={handleChange}
+            value={input}
+          />
+        </p>
+        <p>
+          <Link href={input ? (identical ? `/searchify/${type}=${input}=${identical}` : `/searchify/${type}=${input}`) : {}} id="title">
+            <a className={musicStyles.submit} onClick={(event) => !input ? event.preventDefault() : setStatus(`Loading your request...`)}>Searchify</a>
+          </Link>
+        </p>
+        {status ? <p>{status}</p> : null}
       </div>
-    );
+    </>
+  );
 }
