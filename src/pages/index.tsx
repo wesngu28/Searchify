@@ -35,7 +35,7 @@ export default function MusicInfo() {
         const secondLastColon = tempInput.lastIndexOf(':', tempInput.lastIndexOf(':')-1)
         setType(tempInput.substring(secondLastColon + 1, lastColon))
         const newInput = tempInput.substring(lastColon + 1, tempInput.length-1)
-        let currentInput = window.location.href.replace('http://localhost:3000/searchify/', '');
+        let currentInput = window.location.href.replace('https://searchifyy.vercel.app/searchify/', '');
         const currentInputArr = currentInput.split('=');
         if(newInput === currentInputArr[1]) {
           setIdentical(String(Math.floor(Math.random() * (1000000 - 1) ) + 1))
@@ -45,7 +45,7 @@ export default function MusicInfo() {
         const secondLastSlash = tempInput.lastIndexOf('/', tempInput.lastIndexOf('/')-1)
         setType(tempInput.substring(secondLastSlash + 1, lastSlash))
         const newInput = tempInput.substring(lastSlash + 1, question)
-        let currentInput = window.location.href.replace('http://localhost:3000/searchify/', '');
+        let currentInput = window.location.href.replace('https://searchifyy.vercel.app/searchify/', '');
         const currentInputArr = currentInput.split('=');
         if(newInput === currentInputArr[1]) {
           setIdentical(String(Math.floor(Math.random() * (1000000 - 1) ) + 1))
