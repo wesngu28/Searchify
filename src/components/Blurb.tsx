@@ -16,10 +16,9 @@ export default function Blurb({blurb, type, adjectives}: Props) {
 
     if(type === 'artist') {
         blurb = blurb as ArtistData;
-        const url = blurb.img;
         return(
             <div className={blurbStyles.info}>
-                <Image alt="image of requested artist" className={blurbStyles.spotify} src={url} width={500} height={500}/>
+                <Image alt="image of requested artist" className={blurbStyles.spotify} src={blurb.img} width={500} height={500}/>
                 <p>The {adjectives[0]} {blurb.name} is a {blurb.genres[0]} artist. They make {adjectives[1]} music of {blurb.genre_list} genres.</p>
             </div>
         )
@@ -28,7 +27,7 @@ export default function Blurb({blurb, type, adjectives}: Props) {
         blurb = blurb as TrackData;
         return(
             <div className={blurbStyles.info}>
-                <Image alt="cover image of requested track" className={blurbStyles.spotify} src={blurb.img} />
+                <Image alt="cover image of requested track" className={blurbStyles.spotify} src={blurb.img} width={500} height={500}/>
                 <p>The {adjectives[0]} song {blurb.name} was made by the {adjectives[1]} {blurb.artist}. It was released on {blurb.release} in the {adjectives[2]} album {blurb.album}.</p>
             </div>
         )
@@ -37,7 +36,7 @@ export default function Blurb({blurb, type, adjectives}: Props) {
         blurb = blurb as PlaylistData;
         return(
             <div className={blurbStyles.info}>
-                <Image alt="cover image of requested playlist" className={blurbStyles.spotify} src={blurb.img} />
+                <Image alt="cover image of requested playlist" className={blurbStyles.spotify} src={blurb.img} width={500} height={500}/>
                 <p>{blurb.name} was created on {blurb.created}. This {adjectives[0]} playlist has size {blurb.size} with the {adjectives[1]} {blurb.frequent} being the most frequent, appearing {blurb.frequent_count}.</p>
             </div>
         )
@@ -46,7 +45,7 @@ export default function Blurb({blurb, type, adjectives}: Props) {
         blurb = blurb as AlbumData;
         return(
             <div className={blurbStyles.info}>
-                <Image alt="cover image of requested album" className={blurbStyles.spotify} src={blurb.img} />
+                <Image alt="cover image of requested album" className={blurbStyles.spotify} src={blurb.img} width={500} height={500}/>
                 <p>The {adjectives[0]} {blurb.name} is an album by the {adjectives[1]} {blurb.main_artist}. Released on {blurb.release_date}, it has {blurb.total_tracks} {adjectives[2]} total songs.</p>
             </div>
         )
@@ -55,7 +54,7 @@ export default function Blurb({blurb, type, adjectives}: Props) {
         blurb = blurb as UserData;
         return (
             <div className={blurbStyles.info}>
-                <Image alt="avatar of requested user" className={blurbStyles.spotify} src={blurb.img} />
+                <Image alt="avatar of requested user" className={blurbStyles.spotify} src={blurb.img} width={500} height={500}/>
                 <p>The {adjectives[0]} {blurb.name} is you.</p>
             </div>
         )
