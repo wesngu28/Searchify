@@ -16,5 +16,15 @@ module.exports = {
         destination: "http://wn28.pythonanywhere.com/user",
       },
     ];
-  }
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'i.scdn.co',
+        port: '',
+        pathname: '/image/**',
+      },
+    ],
+  },
 };
