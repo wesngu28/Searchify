@@ -1,6 +1,12 @@
 import Head from 'next/head'
 
-export default function Metadata () {
+interface Props {
+    title?: string;
+    keywords?: string;
+    description?: string;
+}
+
+export default function Metadata ({ title, keywords, description }: Props) {
     return(
         <Head>
             <title>Searchify</title>
@@ -11,4 +17,10 @@ export default function Metadata () {
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         </Head>
     )
+}
+
+Metadata.defaultProps = {
+    title: 'Searchify',
+    keywords: 'spotify stats, music',
+    description: 'Get your top Spotify songs and artists and other Spotify information',
 }
