@@ -13,7 +13,7 @@ export default function Metadata ({ title, keywords, description }: Props) {
             <meta name='keywords' content="spotify stats, music"/>
             <meta name='description' content="Get your top Spotify songs and artists and other Spotify information" />
             <meta charSet="UTF-8" />
-            <link rel="icon" type="image/svg+xml" href="/public/favicon.ico" />
+            <link rel="icon" type="image/svg+xml" href="favicon.ico" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         </Head>
     )
