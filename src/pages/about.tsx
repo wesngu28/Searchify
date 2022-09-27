@@ -1,8 +1,12 @@
+import Head from 'next/head'
 import aboutStyles from '../styles/About.module.css'
 
 export default function About() {
     return (
         <>
+            <Head>
+                <title>Searchify - About</title>
+            </Head>
             <h1>About this Web App</h1>
             <div className={aboutStyles.information}>
                 <p>Searchify was the first real project I made since getting back into programming.</p>

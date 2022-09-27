@@ -5,6 +5,7 @@ import Table from "../../components/Table";
 import musicStyles from '../../styles/MusicInfoData.module.css'
 import { randomAdjective } from "../../util/randomAdjective";
 import { GetServerSideProps } from "next";
+import Head from "next/head";
 
 interface Props {
   music: any
@@ -67,6 +68,9 @@ export default function Music ({music, type, adjectives}: Props) {
 
   return (
     <>
+      <Head>
+        <title>Searchify - {music.name}</title>
+      </Head>
         <MusicInfo />
         {
           music.error ? <p>{music.error}</p> :
