@@ -11,6 +11,7 @@ interface Props {
 export default function Layout ( {children}: Props) {
     return(
         <div className={layoutStyles.main}>
+            <Metadata />
             <Navbar />
             <div className={layoutStyles.container}>
                 <Header />
