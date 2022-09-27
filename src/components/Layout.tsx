@@ -8,17 +8,15 @@ interface Props {
     children: ReactNode
 }
 
-export default function Layout({ children }: Props) {
-    return (
-        <>
+export default function Layout ( {children}: Props) {
+    return(
+        <div className={layoutStyles.main}>
             <Metadata />
-            <div className={layoutStyles.main}>
-                <Navbar />
-                <div className={layoutStyles.container}>
-                    <Header />
-                    {children}
-                </div>
+            <Navbar />
+            <div className={layoutStyles.container}>
+                <Header />
+                {children}
             </div>
-        </>
+        </div>
     )
 }
