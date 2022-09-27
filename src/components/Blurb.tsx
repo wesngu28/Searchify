@@ -18,7 +18,7 @@ export default function Blurb({blurb, type, adjectives}: Props) {
         blurb = blurb as ArtistData;
         return(
             <div className={blurbStyles.info}>
-                <Image alt="image of requested artist" className={blurbStyles.spotify} src={blurb.img} />
+                <img alt="image of requested artist" className={blurbStyles.spotify} src={blurb.img} />
                 <p>The {adjectives[0]} {blurb.name} is a {blurb.genres[0]} artist. They make {adjectives[1]} music of {blurb.genre_list} genres.</p>
             </div>
         )
