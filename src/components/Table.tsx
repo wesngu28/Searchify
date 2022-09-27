@@ -13,7 +13,7 @@ export default function Table ({head, body, usage}: Props) {
       const first = constituentArrays[0]
       const second = constituentArrays[1]
       const urls: Array<JSX.Element> = Object.values(second).map(url => {
-        return <a key={url.id} href={url}>Youtube Link</a>
+        return <a target="_blank" rel="noopener noreferrer" key={url.id} href={url}>Youtube Link</a>
       })
       const third = constituentArrays[2]
       mapper = Object.values(third).map((element, i) => {
