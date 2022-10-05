@@ -10,7 +10,7 @@ export default function Table ({head, body, usage}: Props) {
     let mapper: string[][] = [];
     if (usage === 'music') {
       const constituentArrays: Array<object> = Object.values(body);
-      if(constituentArrays.length > 2) {
+      if(constituentArrays.length >= 3) {
         const first = constituentArrays[0]
         const second = constituentArrays[1]
         const urls: Array<JSX.Element> = Object.values(second).map(url => {
