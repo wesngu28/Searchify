@@ -10,15 +10,23 @@ export default function Table ({head, body, usage}: Props) {
     let mapper: string[][] = [];
     if (usage === 'music') {
       const constituentArrays: Array<object> = Object.values(body);
-      const first = constituentArrays[0]
-      const second = constituentArrays[1]
-      const urls: Array<JSX.Element> = Object.values(second).map(url => {
-        return <a target="_blank" rel="noopener noreferrer" key={url.id} href={url}>Youtube Link</a>
-      })
-      const third = constituentArrays[2]
-      mapper = Object.values(third).map((element, i) => {
-          return [element, Object.values(first)[i], Object.values(urls)[i]]
-      })
+      if(constituentArrays.length > 2) {
+        const first = constituentArrays[0]
+        const second = constituentArrays[1]
+        const urls: Array<JSX.Element> = Object.values(second).map(url => {
+          return <a target="_blank" rel="noopener noreferrer" key={url.id} href={url}>Youtube Link</a>
+        })
+        const third = constituentArrays[2]
+        mapper = Object.values(third).map((element, i) => {
+            return [element, Object.values(first)[i], Object.values(urls)[i]]
+        })
+      } else {
+        const artist = constituentArrays[0]
+        const song = constituentArrays[1]
+        mapper = Object.values(song).map((element, i) => {
+          return [element, Object.values(artist)[i]]
+        })
+      }
     }
     if (usage === 'user') {
       const first: string[] = Object.values(body[0])
