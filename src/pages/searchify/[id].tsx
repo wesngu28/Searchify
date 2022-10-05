@@ -65,7 +65,7 @@ export default function Music ({music, type, adjectives}: Props) {
     temp_link.click();
     document.body.removeChild(temp_link);
   }
-
+  
   return (
     <>
       <Head>
@@ -93,7 +93,7 @@ export default function Music ({music, type, adjectives}: Props) {
 export const getServerSideProps: GetServerSideProps = async ( { query }) => {
   let searchQuery = (query.id! as string).replace('/searchify/', '');
   const searchQueryArr = searchQuery.split('=');
-  const fetchData = await fetch(`https://searchifyy.vercel.app/search/${searchQueryArr[0]}/${searchQueryArr[1]}`)
+  const fetchData = await fetch(`${process.env.NODE_ENV === 'production' ? 'https://searchifyy.vercel.app/searchify/' : 'http://localhost:3000/searchify/'}${searchQueryArr[0]}/${searchQueryArr[1]}`)
   let json;
   try {
     json = await fetchData.json()
