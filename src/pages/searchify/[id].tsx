@@ -27,7 +27,10 @@ export default function Music ({music, type, adjectives}: Props) {
   };
 
   const tableCaption = () => {
-    if ( type === 'playlist') return 'Youtube links to the songs in the playlist'
+    if ( type === 'playlist') {
+      if ( Object.values(music.tracks).length < 3 ) return 'Songs in the playlist'
+      return 'Youtube links to the songs in the playlist'
+    }
     if ( type === 'user') return null;
     return `If you like this ${type}, here are some songs you might like!`
   }
@@ -76,9 +79,9 @@ export default function Music ({music, type, adjectives}: Props) {
           music.error ? <p>{music.error}</p> :
           <>
             <Blurb blurb={music} type={type} adjectives={adjectives}/>
-            <button className={musicStyles.button} onClick={async () => downloadTable()}>
+            {Object.values(music.tracks).length >= 3 ? <button className={musicStyles.button} onClick={async () => downloadTable()}>
               Download Table
-            </button>
+            </button> : null }
             <div className={musicStyles.center}>
               {type === 'playlist' ? <div className={musicStyles.bakery}><Pastry filter={music.tracks.Artists} /></div> : null}
             </div>
