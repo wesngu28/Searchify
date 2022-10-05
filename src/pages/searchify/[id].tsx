@@ -94,28 +94,45 @@ export default function Music ({music, type, adjectives}: Props) {
 }
 
 export const getServerSideProps: GetServerSideProps = async ( { query }) => {
-  let searchQuery = (query.id! as string).replace('/searchify/', '');
-  const searchQueryArr = searchQuery.split('=');
-  const fetchData = await fetch(`https://searchifyy.vercel.app/search/${searchQueryArr[0]}/${searchQueryArr[1]}?links=${query.links}`)
-  let json;
-  try {
-    json = await fetchData.json()
-  } catch (err) {
-    if (searchQueryArr[0] === 'playlist') {
-      json = { 'error' : 'Error encountered with the playlist, is it privated?'}
-    } else {
-      json = { 'error' : 'Error encountered processing the link submitted.'}
+  try{
+    let searchQuery = (query.id! as string).replace('/searchify/', '');
+    const searchQueryArr = searchQuery.split('=');
+    const fetchData = await fetch(`https://searchifyy.vercel.app/search/${searchQueryArr[0]}/${searchQueryArr[1]}?links=${query.links}`)
+    let json;
+    try {
+      json = await fetchData.json()
+    } catch (err) {
+      if (searchQueryArr[0] === 'playlist') {
+        json = { 'error' : 'Error encountered with the playlist, is it privated?'}
+      } else {
+        json = { 'error' : 'Error encountered processing the link submitted.'}
+      }
     }
-  }
-  const adjectives = []
-  adjectives.push(randomAdjective())
-  adjectives.push(randomAdjective())
-  adjectives.push(randomAdjective())
-  return {
-    props: { 
-      type: searchQueryArr[0],
-      music: json,
-      adjectives: adjectives
-    },
+    const adjectives = []
+    adjectives.push(randomAdjective())
+    adjectives.push(randomAdjective())
+    adjectives.push(randomAdjective())
+    return {
+      props: { 
+        type: searchQueryArr[0],
+        music: json,
+        adjectives: adjectives
+      },
+    }
+  } catch (err) {
+    let searchQuery = (query.id! as string).replace('/searchify/', '');
+    const searchQueryArr = searchQuery.split('=');
+    const adjectives = []
+    adjectives.push(randomAdjective())
+    adjectives.push(randomAdjective())
+    adjectives.push(randomAdjective())
+    const json = { 'error' : 'I am on the hobby plan and Vercel timed out my function :( You probably cannot request links for resource.'}
+    return {
+      props: { 
+        type: searchQueryArr[0],
+        music: json,
+        adjectives: adjectives
+      },
+    }
   }
 }
