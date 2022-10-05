@@ -1,3 +1,9 @@
+.searchBarHolder {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
 .input {
     height: 3vh;
     width: 25vw;
@@ -36,4 +42,29 @@
 
 .submit:hover {
     background-color: #215B32;
+}
+
+.dropdown {
+    position: absolute;
+    display: inline-block;
+    right: 1rem;
+}
+
+.dropdown_content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 100px;
+    margin-top: 30px;
+    margin-left: 5px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 3;
+}
+
+.dropdown_content p {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    z-index: 555;
 }
