@@ -40,3 +40,4 @@ backend/__pycache__
 backend/helper/__pycache__
 backend/config.py
 backend/.cache
+backend/venv

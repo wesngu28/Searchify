@@ -20,9 +20,6 @@ sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 @app.route("/callback/")
 def callback():
-    print(request.referrer)
-    print('at callback')
-    print('here')
     try:
       auth_token = request.args['code']
       code_payload = {
@@ -36,7 +33,7 @@ def callback():
       response_data = json.loads(post_request.text)
       global access_token
       access_token = response_data["access_token"]
-      return(redirect('https://searchifyy.vercel.app/profile'))
+      return(redirect('http://localhost:3000/profile'))
     except:
       return('Fail')
 
@@ -65,31 +62,44 @@ def user():
 
 @app.route("/search/playlist/<searchField>")
 def playlist(searchField):
+    link = request.args.get('links')
     response = playlist_info(sp, searchField)
-    recommendations = search_youtube(response['tracks'])
-    response['tracks'] = recommendations.to_dict()
+    if (link == 'yes'):
+        recommendations = search_youtube(response['tracks'])
+        response['tracks'] = recommendations.to_dict()
+        return(response)
     return(response)
 
 @app.route("/search/artist/<searchField>")
 def artist(searchField):
+    link = request.args.get('links')
+    print(link)
     response = artist_info(sp, searchField)
-    recommendations = search_youtube(response['tracks'])
-    response['tracks'] = recommendations.to_dict()
+    if (link == 'yes'):
+        recommendations = search_youtube(response['tracks'])
+        response['tracks'] = recommendations.to_dict()
+        return(response)
     return(response)
 
 @app.route("/search/track/<searchField>")
 def track(searchField):
+    link = request.args.get('links')
     response = track_info(sp, searchField)
-    recommendations = search_youtube(response['tracks'])
-    response['tracks'] = recommendations.to_dict()
+    if (link == 'yes'):
+        recommendations = search_youtube(response['tracks'])
+        response['tracks'] = recommendations.to_dict()
+        return(response)
     return(response)
 
 @app.route("/search/album/<searchField>")
 def album(searchField):
+    link = request.args.get('links')
     response = album_info(sp, searchField)
-    recommendations = search_youtube(response['tracks'])
-    response['tracks'] = recommendations.to_dict()
+    if (link == 'yes'):
+        recommendations = search_youtube(response['tracks'])
+        response['tracks'] = recommendations.to_dict()
+        return(response)
     return(response)
 
 if __name__ == "__main__":
-  app.run(debug=True)
+  app.run(debug=False)
