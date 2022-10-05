@@ -34,7 +34,7 @@ def callback():
       response_data = json.loads(post_request.text)
       global access_token
       access_token = response_data["access_token"]
-      return(redirect('https://searchifyy.vercel.app/profile'))
+      return(redirect('https://searchifyy.vercel.app/'))
     except:
       return('Fail')
 
