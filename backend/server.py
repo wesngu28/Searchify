@@ -106,7 +106,8 @@ def album(searchField):
         recommendations = search_youtube(response['tracks'])
         response['tracks'] = recommendations.to_dict()
         return(response)
-        
+    song_df = build_dataframe_without_youtube_links(response['tracks'])
+    response['tracks'] = song_df.to_dict()
     return(response)
 
 if __name__ == "__main__":
