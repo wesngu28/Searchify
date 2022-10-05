@@ -21,6 +21,7 @@ export default function Table ({head, body, usage}: Props) {
             return [element, Object.values(first)[i], Object.values(urls)[i]]
         })
       } else {
+        head.pop()
         const artist = constituentArrays[0]
         const song = constituentArrays[1]
         mapper = Object.values(song).map((element, i) => {
