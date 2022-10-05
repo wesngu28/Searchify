@@ -34,7 +34,7 @@ def callback():
       response_data = json.loads(post_request.text)
       global access_token
       access_token = response_data["access_token"]
-      return(redirect('http://localhost:3000/profile'))
+      return(redirect('https://searchifyy.vercel.app/profile'))
     except:
       return('Fail')
 
@@ -106,8 +106,7 @@ def album(searchField):
         recommendations = search_youtube(response['tracks'])
         response['tracks'] = recommendations.to_dict()
         return(response)
-    song_df = build_dataframe_without_youtube_links(response['tracks'])
-    response['tracks'] = song_df.to_dict()
+        
     return(response)
 
 if __name__ == "__main__":

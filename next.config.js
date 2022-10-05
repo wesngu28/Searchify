@@ -4,7 +4,7 @@ module.exports = {
   rewrites: async() => {
     return [
       {
-        source: "/search/:path*",
+        source: "/searchify/:path*",
         destination: "http://wn28.pythonanywhere.com/search/:path*",
       },
       {
