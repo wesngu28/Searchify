@@ -13,7 +13,7 @@ export default function SearchBar() {
     const [status, setStatus] = useState('')
     const [identical, setIdentical] = useState('')
     const [links, setLinks] = useState('Get Youtube Links')
-    const dropdown = useRef(null)
+    const dropdown = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
         if (window.location.href.includes(input)) {
