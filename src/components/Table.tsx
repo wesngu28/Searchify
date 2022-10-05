@@ -38,7 +38,7 @@ export default function Table ({head, body, usage}: Props) {
       })
     }
     return (
-      <div>
+      <div className={tableStyles.table_wrapper}>
         <table className={tableStyles.table}>
           <thead>
             <tr className={tableStyles.tr}>

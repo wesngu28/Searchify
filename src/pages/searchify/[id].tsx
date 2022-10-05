@@ -93,7 +93,8 @@ export default function Music ({music, type, adjectives}: Props) {
 export const getServerSideProps: GetServerSideProps = async ( { query }) => {
   let searchQuery = (query.id! as string).replace('/searchify/', '');
   const searchQueryArr = searchQuery.split('=');
-  const fetchData = await fetch(`https://searchifyy.vercel.app/search/${searchQueryArr[0]}/${searchQueryArr[1]}`)
+  console.log(`https://searchifyy.vercel.app/search/${searchQueryArr[0]}/${searchQueryArr[1]}`);
+  const fetchData = await fetch(`https://searchifyy.vercel.app/search/${searchQueryArr[0]}/${searchQueryArr[1]}?${query.links}`)
   let json;
   try {
     json = await fetchData.json()
