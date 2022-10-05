@@ -92,7 +92,7 @@ export default function SearchBar() {
                     <a className={musicStyles.submit} onClick={(event) => !input ? event.preventDefault() : setStatus(`Loading your request...`)}>Searchify</a>
                 </Link>
             </p>
-            {status && window.location.href.includes(`/searchify/${type}=${input}`) ? <p>{status}</p> : null}
+            {status && !window.location.href.includes(`/searchify/${type}=${input}`) ? <p>{status}</p> : null}
         </>
     )
 }
