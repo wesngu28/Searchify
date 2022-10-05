@@ -73,7 +73,7 @@ export default function Music ({music, type, adjectives}: Props) {
   return (
     <>
       <Head>
-        <title>Searchify - {music.name}</title>
+        <title>Searchify{music.name ? ` - ${music.name}` : ''}</title>
       </Head>
         <MusicInfo />
         {
