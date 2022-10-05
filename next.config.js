@@ -18,6 +18,6 @@ module.exports = {
     ];
   },
   images: {
-    domains: ['i.scdn.co'],
+    domains: ['mosaic.scdn.co', 'i.scdn.co'],
   },
 };
