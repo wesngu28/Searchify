@@ -7,6 +7,7 @@ from helper.playlist import playlist_info
 from helper.track import track_info
 from helper.utilities import search_youtube
 from helper.user import user_info
+from helper.utilities import build_dataframe_without_youtube_links
 import requests
 import json
 import spotipy
@@ -68,6 +69,8 @@ def playlist(searchField):
         recommendations = search_youtube(response['tracks'])
         response['tracks'] = recommendations.to_dict()
         return(response)
+    song_df = build_dataframe_without_youtube_links(response['tracks'])
+    response['tracks'] = song_df.to_dict()
     return(response)
 
 @app.route("/search/artist/<searchField>")
@@ -79,6 +82,8 @@ def artist(searchField):
         recommendations = search_youtube(response['tracks'])
         response['tracks'] = recommendations.to_dict()
         return(response)
+    song_df = build_dataframe_without_youtube_links(response['tracks'])
+    response['tracks'] = song_df.to_dict()
     return(response)
 
 @app.route("/search/track/<searchField>")
@@ -89,6 +94,8 @@ def track(searchField):
         recommendations = search_youtube(response['tracks'])
         response['tracks'] = recommendations.to_dict()
         return(response)
+    song_df = build_dataframe_without_youtube_links(response['tracks'])
+    response['tracks'] = song_df.to_dict()
     return(response)
 
 @app.route("/search/album/<searchField>")
@@ -99,6 +106,8 @@ def album(searchField):
         recommendations = search_youtube(response['tracks'])
         response['tracks'] = recommendations.to_dict()
         return(response)
+    song_df = build_dataframe_without_youtube_links(response['tracks'])
+    response['tracks'] = song_df.to_dict()
     return(response)
 
 if __name__ == "__main__":

@@ -44,6 +44,10 @@ def search_youtube(song_dict):
     # print(end-start)
     return df
 
+def build_dataframe_without_youtube_links(song_dict):
+    df = pd.DataFrame(list(song_dict.items()),columns = ['Song Name','Artists'])
+    return df
+
 # Function to convert the duration_ms returned by Spotify to something readable by normal human beings.
 def readable_time(duration):
     minutes = (duration / (60*1000)) % 60
