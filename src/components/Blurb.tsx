@@ -13,7 +13,7 @@ interface Props {
 }
 
 export default function Blurb({blurb, type, adjectives}: Props) {
-
+    
     if(type === 'artist') {
         blurb = blurb as ArtistData;
         return(
@@ -23,7 +23,7 @@ export default function Blurb({blurb, type, adjectives}: Props) {
             </div>
         )
     }
-    if(type === 'song') {
+    if(type === 'track') {
         blurb = blurb as TrackData;
         return(
             <div className={blurbStyles.info}>

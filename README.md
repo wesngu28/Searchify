@@ -1,5 +1,7 @@
 # Searchify
 
+I realize how completely broken user stats are. I chose to store the access token in memory, which means users will overwrite each other's access tokens and be given access to them, so I have removed its function.
+
 A web app to view brief statistics, get Youtube links, and recommendations for Spotify tracks, albums, artists, and playlists, as well as get your top played artists and songs when logged in.
 
 ## About and Ramble

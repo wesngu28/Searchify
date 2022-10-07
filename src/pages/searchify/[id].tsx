@@ -105,7 +105,7 @@ export const getServerSideProps: GetServerSideProps = async ( { query }) => {
       json = await fetchData.json()
     } catch (err) {
       if (searchQueryArr[0] === 'playlist') {
-        json = { 'error' : 'Error encountered with the playlist, is it privated? Wazabooba'}
+        json = { 'error' : 'Error encountered with the playlist, is it privated?'}
       } else {
         json = { 'error' : 'Error encountered processing the link submitted.'}
       }

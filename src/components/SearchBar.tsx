@@ -11,7 +11,6 @@ export default function SearchBar() {
     const [type, setType] = useState('')
     const [input, setInput] = useState('')
     const [status, setStatus] = useState('')
-    const [identical, setIdentical] = useState('')
     const [links, setLinks] = useState('Get Youtube Links')
     const dropdown = useRef<HTMLDivElement>(null)
 
@@ -30,7 +29,6 @@ export default function SearchBar() {
     }
 
     const handleChange = (event: InputEvent) => {
-        setIdentical('')
         const spotifyUrl = new RegExp('(https?:\/\/open.spotify.com\/(playlist|track|user|artist|album)\/[a-zA-Z0-9]+(\/playlist\/[a-zA-Z0-9]+|)|spotify:(track|user|artist|album):[a-zA-Z0-9]+(:playlist:[a-zA-Z0-9]+|))');
         if (!spotifyUrl.test(event.target.value)) {
             setInput('');
@@ -49,9 +47,6 @@ export default function SearchBar() {
                 const newInput = tempInput.substring(lastColon + 1, tempInput.length - 1)
                 let currentInput = window.location.href.replace(process.env.NODE_ENV === 'production' ? 'https://searchifyy.vercel.app/searchify/' : 'http://localhost:3000/searchify/', '');
                 const currentInputArr = currentInput.split('=');
-                if (newInput === currentInputArr[1]) {
-                    setIdentical(String(Math.floor(Math.random() * (1000000 - 1)) + 1))
-                }
                 setInput(newInput)
             } else {
                 const secondLastSlash = tempInput.lastIndexOf('/', tempInput.lastIndexOf('/') - 1)
@@ -59,9 +54,6 @@ export default function SearchBar() {
                 const newInput = tempInput.substring(lastSlash + 1, question)
                 let currentInput = window.location.href.replace(process.env.NODE_ENV === 'production' ? 'https://searchifyy.vercel.app/searchify/' : 'http://localhost:3000/searchify/', '');
                 const currentInputArr = currentInput.split('=');
-                if (newInput === currentInputArr[1]) {
-                    setIdentical(String(Math.floor(Math.random() * (1000000 - 1)) + 1))
-                }
                 setInput(newInput)
             }
         }
@@ -88,7 +80,7 @@ export default function SearchBar() {
                 </div>
             </p>
             <p>
-                <Link href={input ? (identical ? `/searchify/${type}=${input}=${identical}?links=${links === 'Get Youtube Links' ? 'yes' : 'no'}` : `/searchify/${type}=${input}?links=${links === 'Get Youtube Links' ? 'yes' : 'no'}`) : {}} id="title">
+                <Link href={input ? (`/searchify/${type}=${input}?links=${links === 'Get Youtube Links' ? 'yes' : 'no'}`) : {}} id="title">
                     <a className={musicStyles.submit} onClick={(event) => !input ? event.preventDefault() : setStatus(`Loading your request...`)}>Searchify</a>
                 </Link>
             </p>
