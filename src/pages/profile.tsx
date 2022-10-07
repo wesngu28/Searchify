@@ -16,11 +16,10 @@ export default function Profile() {
     const fetchedData = async () => {
       let paramString = window.location.href.split('?')[1];
       let queryString = new URLSearchParams(paramString);
+      window.history.replaceState(null, '', '/profile');
       const userData = await fetch(`/user?token=${queryString}`);
       const userDataJSON = await userData.json();
-      console.log(userDataJSON)
       setData(userDataJSON);
-      window.history.replaceState(null, '', '/profile');
     };
     fetchedData();
     setAdjective(`${randomAdjective()}+${randomAdjective()}`)
