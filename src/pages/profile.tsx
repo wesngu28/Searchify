@@ -14,9 +14,13 @@ export default function Profile() {
 
   useEffect(() => {
     const fetchedData = async () => {
-      const userData = await fetch("/user");
+      let paramString = window.location.href.split('?')[1];
+      let queryString = new URLSearchParams(paramString);
+      const userData = await fetch(`/user?token=${queryString}`);
       const userDataJSON = await userData.json();
+      console.log(userDataJSON)
       setData(userDataJSON);
+      window.history.replaceState(null, '', '/profile');
     };
     fetchedData();
     setAdjective(`${randomAdjective()}+${randomAdjective()}`)

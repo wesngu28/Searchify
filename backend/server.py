@@ -13,7 +13,6 @@ import json
 import spotipy
 
 app = Flask(__name__)
-access_token = 'Not set'
 client_id = CLIENT_ID
 client_secret = CLIENT_SECRET
 client_credentials_manager = SpotifyClientCredentials(client_id=client_id,client_secret=client_secret)
@@ -32,9 +31,9 @@ def callback():
       }
       post_request = requests.post(SPOTIFY_TOKEN_URL, data=code_payload)
       response_data = json.loads(post_request.text)
-      global access_token
       access_token = response_data["access_token"]
-      return(redirect('https://searchifyy.vercel.app/'))
+      redir = redirect(f'https://searchifyy.vercel.app/profile?token={access_token}')
+      return(redir)
     except:
       return('Fail')
 
@@ -46,16 +45,12 @@ def authentication():
     params_list = params_list[:-1]
     return(redirect(f"{SPOTIFY_AUTH_URL}/?{params_list}"))
 
-@app.route('/check')
-def check():
-    if(access_token == 'Not set'):
-        return 'not logged'
-    return 'is logged'
-
 @app.route("/user")
 def user():
     try:
-        sp = spotipy.Spotify(auth=access_token)
+        token = request.args.get("token")
+        token = token.replace('token=', '')
+        sp = spotipy.Spotify(auth=token)
         response = user_info(sp)
         return(response)
     except:
@@ -69,9 +64,10 @@ def playlist(searchField):
         recommendations = search_youtube(response['tracks'])
         response['tracks'] = recommendations.to_dict()
         return(response)
-    song_df = build_dataframe_without_youtube_links(response['tracks'])
-    response['tracks'] = song_df.to_dict()
-    return(response)
+    else:
+        song_df = build_dataframe_without_youtube_links(response['tracks'])
+        response['tracks'] = song_df.to_dict()
+        return(response)
 
 @app.route("/search/artist/<searchField>")
 def artist(searchField):
@@ -82,9 +78,10 @@ def artist(searchField):
         recommendations = search_youtube(response['tracks'])
         response['tracks'] = recommendations.to_dict()
         return(response)
-    song_df = build_dataframe_without_youtube_links(response['tracks'])
-    response['tracks'] = song_df.to_dict()
-    return(response)
+    else:
+        song_df = build_dataframe_without_youtube_links(response['tracks'])
+        response['tracks'] = song_df.to_dict()
+        return(response)
 
 @app.route("/search/track/<searchField>")
 def track(searchField):
@@ -94,9 +91,10 @@ def track(searchField):
         recommendations = search_youtube(response['tracks'])
         response['tracks'] = recommendations.to_dict()
         return(response)
-    song_df = build_dataframe_without_youtube_links(response['tracks'])
-    response['tracks'] = song_df.to_dict()
-    return(response)
+    else:
+        song_df = build_dataframe_without_youtube_links(response['tracks'])
+        response['tracks'] = song_df.to_dict()
+        return(response)
 
 @app.route("/search/album/<searchField>")
 def album(searchField):
@@ -106,9 +104,10 @@ def album(searchField):
         recommendations = search_youtube(response['tracks'])
         response['tracks'] = recommendations.to_dict()
         return(response)
-    song_df = build_dataframe_without_youtube_links(response['tracks'])
-    response['tracks'] = song_df.to_dict()
-    return(response)
+    else:
+        song_df = build_dataframe_without_youtube_links(response['tracks'])
+        response['tracks'] = song_df.to_dict()
+        return(response)
 
 if __name__ == "__main__":
   app.run(debug=False)
