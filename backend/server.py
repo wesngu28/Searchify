@@ -54,7 +54,9 @@ def user():
         response = user_info(sp)
         return(response)
     except:
-        return('tis but a test')
+        return({
+            "error": 'something wrong happened'
+        })
 
 @app.route("/search/playlist/<searchField>")
 def playlist(searchField):

@@ -8,6 +8,7 @@ import { randomAdjective } from "../util/randomAdjective";
 
 export default function Profile() {
   const [data, setData] = useState({} as UserData);
+  const [error, setError] = useState(false)
   const [show, setShow] = useState(true);
   const [adjective, setAdjective] = useState('')
   const headings = ['Last 4 Weeks', 'Last Six Months', 'All Time']
@@ -16,10 +17,14 @@ export default function Profile() {
     const fetchedData = async () => {
       let paramString = window.location.href.split('?')[1];
       let queryString = new URLSearchParams(paramString);
-      window.history.replaceState(null, '', '/profile');
       const userData = await fetch(`/user?token=${queryString}`);
       const userDataJSON = await userData.json();
-      setData(userDataJSON);
+      if (userDataJSON.error) {
+        setError(true)
+      } else {
+        setData(userDataJSON);
+      }
+      window.history.replaceState(null, '', '/profile');
     };
     fetchedData();
     setAdjective(`${randomAdjective()}+${randomAdjective()}`)
@@ -30,11 +35,11 @@ export default function Profile() {
       <Head>
         <title>Searchify - {data.name}</title>
       </Head>
-      <div id="user">
+      {error ? <p>Could not get user profile</p> : <div id="user">
         <Blurb blurb={data} type={"user"} adjectives={adjective.split('+')} />
         <button className={userStyles.button} onClick={() => setShow(!show)}>{show === true ? 'Show Top Songs' : 'Show Top Artists'}</button>
         {data.name ? <Table head={headings} body={show === true ? Object.values(data.top_artists) : Object.values(data.top_songs)} usage={'user'} /> : null}
-      </div>
+      </div>}
     </>
   );
 }

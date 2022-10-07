@@ -25,4 +25,5 @@ export interface UserData {
             [key: string]: string
         }
     },
+    error?: string,
 }
